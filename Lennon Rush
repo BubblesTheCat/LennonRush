@@ -1,35 +1,60 @@
+# for GUI
+import tkinter as tk
+# for random numbers
 import random
+# for Vbucks prank
 import time
+# for buttons
+from tkinter import *
 
-print('''   
-   WELCOME TO LENNON RUSH 
-       pre release 1.0  
-        __________
-      /*************
-     *   ^%$£&*******
-   <(         @%*^-**)>
-     *           .,"*
-      \*__________*/
-WHEN LIFE GIVES YOU LEMONS
-PUT THE CITRUS IN ITS EYES
-''')
-input("  press enter to start")
-
+# robot variable makes sure that the player isn't constantly asked whether they're robots because it is annoying
+# FUN FACT: even I hate that part
 robot = 0
 
-def randomevent():
+# clears the screen
+def delete_all_text():
+    # iterates through each widget
+    for widget in root.winfo_children():
+        # destroys the widget of the current iteration
+        widget.destroy()
 
+# the 'fun' part of the game
+def randomevent():
+    # determines the event in which a mashup of Sun Tzu quotes appear for light reading
     def SunTzuArtOfWar():
-        SunTzuConjunctions1 = ["Appear weak when you are strong, and ", "The supreme art of war is to ", "let your plans be dark and impenetrable as night, and when you move, ", "in the midst of chaos, ", "To know your Enemy, ", "Treat your men as you would your own beloved sons. And "]
-        SunTzuConjunctions2 = ["appear strong when you are weak.", "subdue the enemy without fighting", "fall like a thunderbolt", "there is also opportunity", "you must become your Enemy.", "they will follow you into the deepest valley."]
-        print("\"",
-              SunTzuConjunctions1[random.randrange(0,len(SunTzuConjunctions1))],
-              SunTzuConjunctions2[random.randrange(0,len(SunTzuConjunctions2))])
-        input("- Sun Tzu The Art Of War")
-        print("\n" * 100)
+
+
+
+        # determines the first part of the possible sentence
+        SunTzuConjunctions1 = ["Appear weak when you are strong, and ", "The supreme art of war is to ",
+                               "let your plans be dark and impenetrable as night, and when you move, ",
+                               "in the midst of chaos, ", "To know your Enemy, ",
+                               "Treat your men as you would your own beloved sons. And "]
+        # determines the second part of the possible sentence
+        SunTzuConjunctions2 = ["appear strong when you are weak.", "subdue the enemy without fighting",
+                               "fall like a thunderbolt", "there is also opportunity", "you must become your Enemy.",
+                               "they will follow you into the deepest valley."]
+
+        # the screen needs to be clear
+        delete_all_text()
+
+        # determines the quote to use by selecting a random index for each list and pushing them together
+        quote = (SunTzuConjunctions1[random.randrange(0, len(SunTzuConjunctions1))], '\n',
+              SunTzuConjunctions2[random.randrange(0, len(SunTzuConjunctions2))],
+                 "\n - Sun Tzu The Art Of War")
+
+        # show the play-screen in courier because it's good for ASCII art
+        label = tk.Label(root, text=quote, font="courier", justify="center")
+        label.pack()
+
+        # creates a start button with the determined parameters to continue the game
+        playbutton = Button(text="OK?", command=play)
+        playbutton.pack(side='bottom')
+
+        # waits for the button to be pressed
+        root.mainloop()
 
     def Robot():
-        name = ""
         name = input("what is your name?")
         input(f"are you a robot, {name}?")
         print("indeed, you are not a robot. However...")
@@ -53,7 +78,7 @@ def randomevent():
     def HorseRace():
         print("Which horse shall you bet your life savings on?")
         for i in range(8):
-            print("horse ", i+1, "is unlikely to win")
+            print("horse ", i + 1, "is unlikely to win")
         i = input("you will bet on horse: ")
         random_number = random.randint(0, 10)
         if random_number == 0:
@@ -81,6 +106,7 @@ def randomevent():
         print("\n" * 100)
         print("OH NO!")
         input(f"Horse {i} has just {death}")
+
     def Vbucks():
         input("FREE VBUCKS JUST ENTER YOUR BANK DETAILS HERE: ")
         time.sleep(2.5)
@@ -95,12 +121,13 @@ def randomevent():
         print("transaction complete")
         print("Ammount taken: £100.00")
         input("Ammount of Vbucks granted: V1.0")
+
     def detective():
         print("who dunnit detective?")
         murderer = input("")
         print("What did they use?")
         weapon = input("")
-        input("OH NO! you've been killed by", murderer, "using", weapon)
+        input(F"OH NO! you've been killed by {murderer} using {weapon}")
 
     def darwin():
         goal = random.randint(0, 19000000000000)
@@ -114,8 +141,9 @@ def randomevent():
               nouns[random.randint(0, len(nouns) - 1)])
         print(
             "following the recent undeniable allegations and mountain of blantant evidence so called 'Mr' nuñez is retiring from football to focus on his true passion - teaching computing at Claydon high school")
+
     print("\n" * 100)
-    random_number = random.randint(0, 6)
+    random_number = random.randint(0, 0)
     if random_number == 0:
         SunTzuArtOfWar()
     elif random_number == 1:
@@ -130,7 +158,53 @@ def randomevent():
         detective()
     elif random_number == 6:
         darwin()
+# allows the game to be started
+def play():
+
+    # constantly triggers a random event after a work event
+        randomevent()
+
+def work():
+
+    # constantly triggers a random event after a work event
+        randomevent()
 
 
-while True:
-    randomevent()
+
+# creates a GUI called 'Lennon Rush'
+root = tk.Tk()
+root.title("Lennon Rush")
+
+# this is a lemon - trust me!
+text = '''   
+WELCOME TO LENNON RUSH 
+pre release 1  
+__________
+/***********
+*   ^%$£&*****
+<(         @%*^-)>
+           .,"
+\*________*/
+
+WHEN LIFE GIVES YOU LEMONS
+PUT THE CITRUS IN ITS EYES
+'''
+
+# show the play-screen in courier because it's good for ASCII art
+label = tk.Label(root, text=text, font="courier", justify="center")
+label.pack()
+
+
+
+
+
+# creates a start button with the determined parameters to start the game
+playbutton = Button(text="START!", command= play)
+playbutton.pack(side='bottom')
+
+# waits for the button to be pressed
+root.mainloop()
+
+
+
+
